@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CBT SMK AL IKHLASH - V5.8</title>
+<title>CBT SMK AL IKHLASH - V5.8.1</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="config.js"></script>
@@ -157,7 +157,7 @@ async function setUserData(user){
         id: user.id,
         guru: "",
         nama: user.user_metadata.full_name || user.email.split('@')[0],
-        kelas: "X", // default SMK
+        kelas: "X",
         email: user.email
     };
     document.getElementById('dataSiswa').innerHTML = `Nama: <b>${dataSiswa.nama}</b><br>Kelas: ${dataSiswa.kelas}`;
@@ -181,7 +181,6 @@ async function logout(){
     location.reload();
 }
 
-// SISA FUNGSI SAMA KAYA SEBELUMNYA...
 function acakArray(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } return array; }
 function pilihMapel(file, nama) { document.getElementById('namaMapelNav').innerText = nama; document.getElementById('popupMapel').style.display = 'none'; loadSoal(file, nama); }
 function loadSoal(file, nama) { fetch(file).then(res => res.json()).then(data => { dataSoal = data; let pg = data.filter(s => (s.jenis || 'pg') === 'pg'); let bs = data.filter(s => s.jenis === 'bs'); let jodoh = data.filter(s => s.jenis === 'jodoh'); let isian = data.filter(s => s.jenis === 'isian'); let uraian = data.filter(s => s.jenis === 'uraian'); dataSoalAcak = [...acakArray(pg),...acakArray(bs),...acakArray(jodoh),...acakArray(isian),...acakArray(uraian)]; buatGridNomor(); tampilkanSoal(0); mulaiTimer(); cekSelesai(); }).catch(err => { alert('File '+file+' tidak ditemukan'); }); }
@@ -190,7 +189,7 @@ function tampilkanSoal(index) { noSoalSekarang = index; const s = dataSoalAcak[i
 function klikJodohA(idxA) { jodohState.terpilihA = idxA; document.querySelectorAll('.jodoh-item').forEach(it => it.classList.remove('terpilih')); document.getElementById('a'+idxA).classList.add('terpilih'); }
 function klikJodohB(idxB) { if(jodohState.terpilihA === null) { alert('Pilih dulu dari Kolom A!'); return; } let warnaIdx = Object.keys(jodohState.pasangan).length % warnaList.length; if(jodohState.pasangan[jodohState.terpilihA]){ warnaIdx = jodohState.pasangan[jodohState.terpilihA].warna; } jodohState.pasangan[jodohState.terpilihA] = {idxB, warna: warnaIdx}; jodohState.terpilihA = null; simpanJawabanJodoh(noSoalSekarang); tampilkanSoal(noSoalSekarang); }
 function simpanJawabanJodoh(index) { jawabanUser[index] = jodohState.pasangan; updateGridNomor(); }
-function soalSebelumnya() { if(noSoalSekarang > 0){ tampilkanSoal(noSoalSekarang - 1); }
+function soalSebelumnya() { if(noSoalSekarang > 0){ tampilkanSoal(noSoalSekarang - 1); } }
 function soalBerikutnya() { if(noSoalSekarang < dataSoalAcak.length - 1){ tampilkanSoal(noSoalSekarang + 1); }
 function updatePaginationBtn() { document.getElementById('btnPrev').disabled = (noSoalSekarang === 0); document.getElementById('btnNext').disabled = (noSoalSekarang === dataSoalAcak.length - 1); }
 function updateGridNomor() { document.querySelectorAll('.btn-nomor').forEach((btn, i) => { let jenisBtn = btn.dataset.jenis; if(jenisBtn === jenisSekarang){ btn.classList.remove('hidden'); } else { btn.classList.add('hidden'); } btn.classList.remove('aktif', 'dijawab'); if(i === noSoalSekarang) btn.classList.add('aktif'); if(jawabanUser[i]!== undefined && jawabanUser[i]!== "" && (typeof jawabanUser[i]!== 'object' || Object.keys(jawabanUser[i]).length > 0)) btn.classList.add('dijawab'); }); cekSelesai(); }
