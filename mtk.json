@@ -1,0 +1,91 @@
+[
+  {
+    "jenis": "pg",
+    "pertanyaan": "Luas sebuah persegi dengan panjang sisi 5 cm adalah...",
+    "opsi": ["20 cm²", "25 cm²", "30 cm²", "10 cm²"],
+    "kunci": "B"
+  },
+  {
+    "jenis": "pg",
+    "pertanyaan": "Satuan tak baku yang paling tepat untuk mengukur luas meja adalah...",
+    "opsi": ["Meter", "Ubin keramik", "Liter", "Kilogram"],
+    "kunci": "B"
+  },
+  {
+    "jenis": "pg",
+    "pertanyaan": "Volume bak mandi dapat diukur menggunakan satuan tak baku...",
+    "opsi": ["Gelas", "Meter", "Gram", "Detik"],
+    "kunci": "A"
+  },
+  {
+    "jenis": "pg",
+    "pertanyaan": "Sebuah bangun tersusun dari 8 kubus satuan. Volumenya adalah...",
+    "opsi": ["6 kubus satuan", "8 kubus satuan", "10 kubus satuan", "4 kubus satuan"],
+    "kunci": "B"
+  },
+  {
+    "jenis": "pg",
+    "pertanyaan": "Volume sebuah kardus diukur dengan 12 kotak kecil. Volume kardus = ...",
+    "opsi": ["10 kotak", "12 kotak", "14 kotak", "8 kotak"],
+    "kunci": "B"
+  },
+  {
+    "jenis": "pg",
+    "pertanyaan": "Bangun datar yang memiliki 4 sisi sama panjang dan 4 sudut siku-siku adalah...",
+    "opsi": ["Persegi Panjang", "Segitiga", "Persegi", "Layang-layang"],
+    "kunci": "C"
+  },
+  {
+    "jenis": "pg",
+    "pertanyaan": "Bangun yang memiliki 2 pasang sisi sejajar dan 2 sudut tumpul adalah...",
+    "opsi": ["Trapesium", "Jajar Genjang", "Segitiga", "Lingkaran"],
+    "kunci": "B"
+  },
+  {
+    "jenis": "pg",
+    "pertanyaan": "Banyak diagonal pada bangun layang-layang adalah...",
+    "opsi": ["1", "2", "3", "4"],
+    "kunci": "B"
+  },
+  {
+    "jenis": "pg",
+    "pertanyaan": "Dua bangun segitiga dikatakan kongruen jika...",
+    "opsi": ["Warnanya sama", "Bentuk dan ukurannya sama", "Sisinya beda", "Sudutnya beda"],
+    "kunci": "B"
+  },
+  {
+    "jenis": "pg",
+    "pertanyaan": "Banyak sudut siku-siku pada trapesium siku-siku adalah...",
+    "opsi": ["1", "2", "3", "4"],
+    "kunci": "B"
+  },
+  {
+    "jenis": "pg",
+    "pertanyaan": "Berdasarkan piktogram, jika 1 gambar = 5 buah, dan ada 4 gambar mangga. Jumlah mangga = ...",
+    "opsi": ["15", "20", "25", "10"],
+    "kunci": "B"
+  },
+  {
+    "jenis": "pg",
+    "pertanyaan": "Data panen: Padi 30kg, Jagung 18kg. Selisihnya adalah...",
+    "opsi": ["10 kg", "12 kg", "14 kg", "8 kg"],
+    "kunci": "B"
+  },
+  {
+    "jenis": "pg",
+    "pertanyaan": "Jumlah seluruh data: 10, 15, 20, 5 adalah...",
+    "opsi": ["45", "50", "55", "40"],
+    "kunci": "B"
+  },
+  {
+    "jenis": "pg",
+    "pertanyaan": "Diagram batang yang tepat untuk data 5, 10, 15 adalah batang yang...",
+    "opsi": ["Sama tinggi", "Makin ke kanan makin tinggi", "Makin ke kanan makin rendah", "Acak"],
+    "kunci": "B"
+  },
+  {
+    "jenis": "pg",
+    "pertanyaan": "Pada diagram batang, kategori 'Suka Matematika' tingginya 8. Jumlah siswa = ...",
+    "opsi": ["6", "7", "8", "9"],
+    "kunci": "C"
+}]

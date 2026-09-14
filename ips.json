@@ -1,0 +1,102 @@
+[
+  {
+    "pertanyaan": "Organisasi Budi Utomo didirikan pada tanggal...",
+    "opsi": ["17 Agustus 1945", "20 Mei 1908", "28 Oktober 1928", "10 November 1945"],
+    "kunci": "B"
+  },
+  {
+    "pertanyaan": "Tujuan utama Budi Utomo adalah...",
+    "opsi": ["Memerdekakan Indonesia", "Memajukan pendidikan pribumi", "Mengusir penjajah", "Membuat senjata"],
+    "kunci": "B"
+  },
+  {
+    "pertanyaan": "Sumpah Pemuda dikumandangkan pada tahun...",
+    "opsi": ["1908", "1928", "1945", "1950"],
+    "kunci": "B"
+  },
+  {
+    "pertanyaan": "Tokoh yang membacakan naskah Sumpah Pemuda adalah...",
+    "opsi": ["Soekarno", "Sugondo Djojopuspito", "Moh. Hatta", "Sutan Sjahrir"],
+    "kunci": "B"
+  },
+  {
+    "pertanyaan": "Penjajah yang paling lama di Indonesia adalah...",
+    "opsi": ["Inggris", "Portugis", "Belanda", "Jepang"],
+    "kunci": "C"
+  },
+  {
+    "pertanyaan": "Tanaman paksa diberlakukan pada masa penjajahan...",
+    "opsi": ["Portugis", "Belanda", "Inggris", "Jepang"],
+    "kunci": "B"
+  },
+  {
+    "pertanyaan": "Perjuangan Pangeran Diponegoro disebut Perang...",
+    "opsi": ["Aceh", "Banjar", "Diponegoro", "Padri"],
+    "kunci": "C"
+  },
+  {
+    "pertanyaan": "Lagu Indonesia Raya pertama kali dikumandangkan pada peristiwa...",
+    "opsi": ["Budi Utomo", "Sumpah Pemuda", "Proklamasi", "Konferensi Asia Afrika"],
+    "kunci": "B"
+  },
+  {
+    "pertanyaan": "BPUPKI bertugas untuk...",
+    "opsi": ["Merdeka", "Menyiapkan kemerdekaan", "Mengusir Jepang", "Membuat UUD"],
+    "kunci": "B"
+  },
+  {
+    "pertanyaan": "Sidang BPUPKI pertama membahas tentang...",
+    "opsi": ["Bendera", "Dasar Negara", "Lagu Kebangsaan", "Ibu Kota"],
+    "kunci": "B"
+  },
+  {
+    "pertanyaan": "Tokoh Tiga Serangkai adalah Douwes Dekker, Tjipto Mangoenkoesoemo, dan...",
+    "opsi": ["Soekarno", "Ki Hajar Dewantara", "Moh. Hatta", "Sutan Sjahrir"],
+    "kunci": "B"
+  },
+  {
+    "pertanyaan": "Peristiwa 10 November terjadi di kota...",
+    "opsi": ["Jakarta", "Yogyakarta", "Surabaya", "Bandung"],
+    "kunci": "C"
+  },
+  {
+    "pertanyaan": "Jepang masuk ke Indonesia pada tahun...",
+    "opsi": ["1942", "1945", "1908", "1928"],
+    "kunci": "A"
+  },
+  {
+    "pertanyaan": "Organisasi pemuda pada masa Jepang adalah...",
+    "opsi": ["Budi Utomo", "Sarekat Islam", "Jawa Hokokai", "Indische Partij"],
+    "kunci": "C"
+  },
+  {
+    "pertanyaan": "Proklamasi Kemerdekaan Indonesia dibacakan oleh...",
+    "opsi": ["Moh. Hatta", "Soekarno", "Soekarno dan Moh. Hatta", "Sutan Sjahrir"],
+    "kunci": "C"
+  },
+  {
+    "pertanyaan": "Naskah Proklamasi diketik oleh...",
+    "opsi": ["Sayuti Melik", "Soekarno", "Moh. Hatta", "BM Diah"],
+    "kunci": "A"
+  },
+  {
+    "pertanyaan": "Latar belakang munculnya pergerakan nasional adalah...",
+    "opsi": ["Adanya sekolah", "Penderitaan rakyat akibat penjajahan", "Banyaknya organisasi", "Bantuan Jepang"],
+    "kunci": "B"
+  },
+  {
+    "pertanyaan": "Peninggalan Belanda berupa jalur kereta api dan...",
+    "opsi": ["Candi", "Masjid", "Benteng", "Gedung-gedung pemerintahan"],
+    "kunci": "D"
+  },
+  {
+    "pertanyaan": "Perjuangan melawan penjajah sebelum tahun 1908 bersifat...",
+    "opsi": ["Nasional", "Daerah", "Internasional", "Modern"],
+    "kunci": "B"
+  },
+  {
+    "pertanyaan": "Hari Kebangkitan Nasional diperingati setiap tanggal...",
+    "opsi": ["17 Agustus", "20 Mei", "28 Oktober", "10 November"],
+    "kunci": "B"
+  }
+]

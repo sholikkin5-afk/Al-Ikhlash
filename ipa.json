@@ -1,0 +1,102 @@
+[
+  {
+    "pertanyaan": "Organ yang berfungsi untuk menyaring darah adalah...",
+    "opsi": ["Jantung", "Paru-paru", "Ginjal", "Hati"],
+    "kunci": "C"
+  },
+  {
+    "pertanyaan": "Proses masuknya oksigen ke dalam tubuh disebut...",
+    "opsi": ["Ekskresi", "Pencernaan", "Pernapasan", "Peredaran darah"],
+    "kunci": "C"
+  },
+  {
+    "pertanyaan": "Organ pencernaan yang menyerap sari-sari makanan adalah...",
+    "opsi": ["Lambung", "Usus halus", "Usus besar", "Kerongkongan"],
+    "kunci": "B"
+  },
+  {
+    "pertanyaan": "Alat pernapasan pada ikan adalah...",
+    "opsi": ["Paru-paru", "Kulit", "Trakea", "Insang"],
+    "kunci": "D"
+  },
+  {
+    "pertanyaan": "Fungsi utama jantung adalah...",
+    "opsi": ["Menyimpan makanan", "Memompa darah", "Menyaring udara", "Mencerna makanan"],
+    "kunci": "B"
+  },
+  {
+    "pertanyaan": "Zat sisa berupa urine dikeluarkan oleh organ...",
+    "opsi": ["Kulit", "Ginjal", "Paru-paru", "Usus"],
+    "kunci": "B"
+  },
+  {
+    "pertanyaan": "Makanan yang mengandung banyak protein adalah...",
+    "opsi": ["Nasi", "Gula", "Telur", "Minyak"],
+    "kunci": "C"
+  },
+  {
+    "pertanyaan": "Penyakit yang disebabkan oleh kekurangan vitamin C adalah...",
+    "opsi": ["Rabun senja", "Sariawan", "Gondok", "Anemia"],
+    "kunci": "B"
+  },
+  {
+    "pertanyaan": "Udara yang dihirup mengandung gas...",
+    "opsi": ["Karbon dioksida", "Oksigen", "Nitrogen", "Hidrogen"],
+    "kunci": "B"
+  },
+  {
+    "pertanyaan": "Organ yang berfungsi untuk mencerna makanan secara kimiawi adalah...",
+    "opsi": ["Mulut", "Lambung", "Usus besar", "Anus"],
+    "kunci": "B"
+  },
+  {
+    "pertanyaan": "Tempat terjadinya pertukaran oksigen dan karbon dioksida adalah...",
+    "opsi": ["Tenggorokan", "Hidung", "Alveolus", "Bronkus"],
+    "kunci": "C"
+  },
+  {
+    "pertanyaan": "Darah yang membawa oksigen disebut darah...",
+    "opsi": ["Kotor", "Merah", "Bersih", "Kuning"],
+    "kunci": "C"
+  },
+  {
+    "pertanyaan": "Makanan 4 sehat 5 sempurna terdiri dari...",
+    "opsi": ["Makanan pokok, lauk, sayur, buah + susu", "Nasi, ikan, ayam, daging + susu", "Karbohidrat, protein, lemak, vitamin + air", "Beras, jagung, gandum, kentang + susu"],
+    "kunci": "A"
+  },
+  {
+    "pertanyaan": "Cara mencegah penyakit diare adalah...",
+    "opsi": ["Jajan sembarangan", "Minum air mentah", "Cuci tangan pakai sabun", "Tidur larut malam"],
+    "kunci": "C"
+  },
+  {
+    "pertanyaan": "Organ yang menghasilkan empedu adalah...",
+    "opsi": ["Pankreas", "Hati", "Lambung", "Ginjal"],
+    "kunci": "B"
+  },
+  {
+    "pertanyaan": "Hewan yang bernapas dengan paru-paru dan kulit adalah...",
+    "opsi": ["Ikan", "Burung", "Katak", "Ular"],
+    "kunci": "C"
+  },
+  {
+    "pertanyaan": "Vitamin yang dibutuhkan untuk pertumbuhan tulang adalah vitamin...",
+    "opsi": ["A", "B", "C", "D"],
+    "kunci": "D"
+  },
+  {
+    "pertanyaan": "Proses pengeluaran keringat melalui kulit disebut...",
+    "opsi": ["Respirasi", "Ekskresi", "Sekresi", "Digesti"],
+    "kunci": "B"
+  },
+  {
+    "pertanyaan": "Paru-paru manusia terdiri dari...",
+    "opsi": ["1 bagian", "2 bagian", "3 bagian", "4 bagian"],
+    "kunci": "B"
+  },
+  {
+    "pertanyaan": "Agar tubuh sehat kita harus...",
+    "opsi": ["Makan teratur, olahraga, istirahat cukup", "Makan banyak, begadang, jarang mandi", "Main HP terus, makan junk food", "Olahraga berlebihan"],
+    "kunci": "A"
+  }
+]

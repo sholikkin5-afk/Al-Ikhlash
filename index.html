@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBT SMK AL IKHLASH - V5.8</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="config.js"></script>
+<style>
+    :root { 
+        --ijo-tua: #006400; --ijo: #228B22; --kuning: #FFD700; 
+        --merah: #DC143C; --biru: #1976d2; --orange: #ff9800;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', 'Segoe UI', Arial, sans-serif; }
+    body { background: #f0f8f0; }
+.container { width: 100%; max-width: 1000px; height: 100vh; background: white; margin: 0 auto; display: flex; flex-direction: column; border: 3px solid var(--ijo-tua); }
+.header-atas { background: linear-gradient(90deg, var(--ijo-tua), var(--ijo)); color: white; padding: 12px 20px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; border-bottom: 4px solid var(--kuning); }
+.nama-sekolah-kiwo { font-weight: 800; font-size: 16px; letter-spacing: 0.5px; text-align: left; }
+.nama-sekolah-kiwo span { font-size:11px; font-weight:400; color: var(--kuning); }
+.logo-tengah { display: flex; justify-content: center; align-items: center; }
+.logo-tengah img { width: 70px; height: 70px; background: white; border-radius: 50%; padding: 4px; object-fit: contain; border: 3px solid var(--kuning); }
+.header-info { text-align: right; font-size: 12px; }
+.header-info #timer { font-size: 20px; font-weight: 800; color: var(--kuning); }
+.main-content { display: flex; flex-direction: column; flex-grow: 1; overflow: hidden; padding: 15px; }
+.soal-area { flex-grow: 1; padding: 0; overflow-y: auto; background: white; }
+.navigasi-area { width: 100%; height: auto; background: white; border-top: 2px solid var(--ijo); padding: 10px 0 0 0; }
+.nama-mapel-wrap { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: center; margin-bottom: 10px; }
+.btn-mapel-nav { padding: 8px 15px; border: 2px solid var(--ijo); background: white; border-radius: 10px; font-weight: 700; cursor: pointer; color: var(--ijo); font-size: 14px; }
+.btn-mapel-nav:hover { background: var(--ijo); color: white; }
+.btn-mapel-nav:disabled { opacity: 0.4; cursor: not-allowed; }
+.nama-mapel { background: linear-gradient(90deg, var(--ijo), var(--kuning)); color: var(--ijo-tua); padding: 8px; border-radius: 10px; text-align: center; font-weight: 800; font-size: 15px; }
+.jenis-soal { font-size: 12px; background: var(--merah); color: white; padding: 3px 10px; border-radius: 20px; margin-left: 10px; }
+.grid-nomor { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; }
+.btn-nomor { width: 100%; height: 35px; border: 2px solid var(--ijo); background: white; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 13px; }
+.btn-nomor.aktif { background: var(--ijo); color: white; }
+.btn-nomor.dijawab { background: var(--kuning); color: var(--ijo-tua); border-color: var(--kuning); }
+.btn-nomor.hidden { display: none; }
+.soal-box { background: white; padding: 18px; border: none; box-shadow: none; }
+.no-soal { font-size: 17px; font-weight: 800; color: var(--ijo-tua); }
+.teks-soal { font-size: 15px; line-height: 1.6; margin: 10px 0; }
+.opsi { display: flex; align-items: center; padding: 10px 14px; margin-bottom: 8px; border: 1px solid #ddd; border-radius: 8px; cursor: pointer; }
+.opsi:hover { border-color: var(--ijo); background: #e8f5e8; }
+.opsi input[type="radio"] { margin-right: 12px; transform: scale(1.3); accent-color: var(--ijo); }
+.opsi.terpilih { border-color: var(--ijo); background: #e8f5e8; font-weight: 700; }
+.input-jawaban { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; margin-top: 10px; }
+.jodoh-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
+.jodoh-kolom { border: 1px solid #ddd; border-radius: 8px; padding: 10px; min-height: 200px; }
+.jodoh-kolom h4 { text-align: center; margin-bottom: 10px; background: var(--kuning); color: var(--ijo-tua); padding: 5px; border-radius: 5px; }
+.jodoh-item { padding: 8px; margin-bottom: 8px; background: #f9f9f9; border: 2px solid #ccc; border-radius: 5px; cursor: pointer; transition: 0.2s; }
+.jodoh-item:hover { border-color: var(--ijo); }
+.jodoh-item.terpilih { border-width: 3px; font-weight: 700; }
+.btn-selesai { background: var(--merah); width: 100%; margin-top: 10px; display: none; padding: 14px; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; color: white; font-size: 16px; }
+.popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 9999; }
+.popup-box { background: white; padding: 30px; border-radius: 20px; text-align: center; width: 90%; max-width: 480px; border: 3px solid var(--ijo); }
+.popup-box h2 { color: var(--ijo-tua); margin-bottom: 15px; }
+.form-login select { width: 100%; padding: 14px; margin: 10px 0; border: 2px solid var(--ijo); border-radius: 10px; font-size: 16px; }
+.popup-btn { padding: 14px 25px; margin: 10px; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; width: 90%; color: white; font-size: 16px; }
+.btn-mapel { background: linear-gradient(90deg, var(--ijo), var(--kuning)); color: var(--ijo-tua); }.btn-mulai { background: linear-gradient(90deg, var(--ijo), #32CD32); }.btn-excel { background: linear-gradient(90deg, #2e7d32, #43a047); }
+.btn-google { background: white; color: #444; border: 2px solid var(--ijo); display: flex; align-items: center; justify-content: center; gap: 10px; }
+.btn-google:hover { background: #f1f1f1; }
+.btn-logout { background: #757575; font-size: 12px; padding: 8px 12px; margin-top: 5px; width: auto; }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header-atas">
+        <div class="nama-sekolah-kiwo">SMK AL IKHLASH<br><span>MULYOREJO - DALEGAN - PANCENG - GRESIK</span></div>
+        <div class="logo-tengah"><img id="logoSekolah" src="logo-alikhlash.png"></div>
+        <div class="header-info">
+            <div id="dataSiswa">BELUM LOGIN</div>
+            <div>Sisa: <span id="timer">45:00</span></div>
+            <button class="btn-logout" id="btnLogout" style="display:none" onclick="logout()">Logout</button>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="soal-area" id="soalArea"></div>
+        <div class="navigasi-area">
+            <div class="nama-mapel-wrap">
+                <button class="btn-mapel-nav" id="btnPrev" onclick="soalSebelumnya()"></button>
+                <div class="nama-mapel" id="namaMapelNav">LOGIN DULU</div>
+                <button class="btn-mapel-nav" id="btnNext" onclick="soalBerikutnya()"></button>
+            </div>
+            <div class="grid-nomor" id="gridNomor"></div>
+            <button class="btn-selesai" id="btnSelesai" onclick="selesaiUjian()"> SELESAI UJIAN</button>
+        </div>
+    </div>
+</div>
+
+<div class="popup-overlay" id="popupLogin">
+    <div class="popup-box">
+        <h2>LOGIN UJIAN SMK AL IKHLASH</h2>
+        <p style="margin-bottom:15px">Login go akun Google ben data otomatis kesimpen</p>
+        <button class="popup-btn btn-google" onclick="loginWithGoogle()">
+            <svg viewBox="0 0 48 48" width="20"><path fill="#FFC107" d="M43.6 20.5h-1.9V20H24v8h11.3c-1.6 4.3-6 7.5-11.3 7.5-6.6 0-12-5.4-12-12s5.4-12 12-12c2.9 0 5.5 1 7.6 2.9l5.7-5.7C34.3 6.1 29.4 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c10.3 0 19-7.8 19-20 0-1.3-.2-2.7-.4-4z"/></svg>
+            Continue with Google
+        </button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="popupGuru" style="display:none">
+    <div class="popup-box">
+        <h2>PILIH GURU PENGAWAS</h2>
+        <div class="form-login">
+            <select id="inputGuru">
+                <option value="">-- Pilih Nama Guru --</option>
+                <option>Pak Albert</option>
+                <option>Bu Jannah</option>
+            </select>
+        </div>
+        <button class="popup-btn btn-mulai" onclick="konfirmasiGuru()">LANJUT</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="popupMapel" style="display:none">
+    <div class="popup-box"><h2>PILIH MATA PELAJARAN</h2>
+        <button class="popup-btn btn-mapel" onclick="pilihMapel('mtk.json', 'MATEMATIKA')">MATEMATIKA</button>
+        <button class="popup-btn btn-mapel" onclick="pilihMapel('ipa.json', 'IPA')">IPA</button>
+        <button class="popup-btn btn-mapel" onclick="pilihMapel('bind.json', 'BAHASA INDONESIA')">BAHASA INDONESIA</button>
+        <button class="popup-btn btn-mapel" onclick="pilihMapel('ips.json', 'IPS')">IPS</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="popupHasil" style="display:none">
+    <div class="popup-box" id="hasilBox">
+        <h2> UJIAN SELESAI </h2>
+        <p id="detailHasil"></p>
+        <button class="popup-btn btn-excel" onclick="exportExcel()">DOWNLOAD NILAI EXCEL</button>
+        <button class="popup-btn btn-mulai" onclick="location.reload()">UJIAN LAGI</button>
+    </div>
+</div>
+
+<script>
+const supabaseClient = supabase.createClient(SUPABASE_CONFIG.URL, SUPABASE_CONFIG.ANON_KEY);
+
+let dataSoal = [], dataSoalAcak = [], noSoalSekarang = 0;
+let jawabanUser = {}, waktu = 45*60, timer = null;
+let dataSiswa = {}, hasilAkhir = {};
+let jenisSekarang = 'pg';
+let warnaList = ['#ff5252','#4caf50','#2196f3','#ff9800','#9c27b0','#00bcd4','#e91e63','#8bc34a'];
+let jodohState = {terpilihA: null, pasangan: {}};
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    if(session) { await setUserData(session.user); }
+});
+
+async function loginWithGoogle() {
+    await supabaseClient.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: window.location.href }
+    });
+}
+
+async function setUserData(user){
+    dataSiswa = {
+        id: user.id,
+        guru: "",
+        nama: user.user_metadata.full_name || user.email.split('@')[0],
+        kelas: "X", // default SMK
+        email: user.email
+    };
+    document.getElementById('dataSiswa').innerHTML = `Nama: <b>${dataSiswa.nama}</b><br>Kelas: ${dataSiswa.kelas}`;
+    document.getElementById('btnLogout').style.display = 'block';
+    document.getElementById('popupLogin').style.display = 'none';
+    document.getElementById('popupGuru').style.display = 'flex';
+    await supabaseClient.from('siswa_cbt').upsert({id: user.id, nama: dataSiswa.nama, email: user.email, kelas: "X"}, {onConflict: 'id'});
+}
+
+function konfirmasiGuru(){
+    let guru = document.getElementById('inputGuru').value;
+    if(guru === ""){ alert('Pilih guru dulu!'); return; }
+    dataSiswa.guru = guru;
+    document.getElementById('dataSiswa').innerHTML = `Guru: <b>${guru}</b><br>Nama: ${dataSiswa.nama} - ${dataSiswa.kelas}`;
+    document.getElementById('popupGuru').style.display = 'none';
+    document.getElementById('popupMapel').style.display = 'flex';
+}
+
+async function logout(){
+    await supabaseClient.auth.signOut();
+    location.reload();
+}
+
+// SISA FUNGSI SAMA KAYA SEBELUMNYA...
+function acakArray(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } return array; }
+function pilihMapel(file, nama) { document.getElementById('namaMapelNav').innerText = nama; document.getElementById('popupMapel').style.display = 'none'; loadSoal(file, nama); }
+function loadSoal(file, nama) { fetch(file).then(res => res.json()).then(data => { dataSoal = data; let pg = data.filter(s => (s.jenis || 'pg') === 'pg'); let bs = data.filter(s => s.jenis === 'bs'); let jodoh = data.filter(s => s.jenis === 'jodoh'); let isian = data.filter(s => s.jenis === 'isian'); let uraian = data.filter(s => s.jenis === 'uraian'); dataSoalAcak = [...acakArray(pg),...acakArray(bs),...acakArray(jodoh),...acakArray(isian),...acakArray(uraian)]; buatGridNomor(); tampilkanSoal(0); mulaiTimer(); cekSelesai(); }).catch(err => { alert('File '+file+' tidak ditemukan'); }); }
+function buatGridNomor() { let grid = document.getElementById('gridNomor'); grid.innerHTML = ''; let counter = {pg:0, bs:0, jodoh:0, isian:0, uraian:0}; for(let i=0; i<dataSoalAcak.length; i++) { let s = dataSoalAcak[i]; let jenis = s.jenis || 'pg'; counter[jenis]++; let btn = document.createElement('button'); btn.className = 'btn-nomor'; btn.innerText = counter[jenis]; btn.onclick = () => { noSoalSekarang = i; tampilkanSoal(i); }; btn.id = 'btn'+i; btn.dataset.jenis = jenis; grid.appendChild(btn); } updateGridNomor(); }
+function tampilkanSoal(index) { noSoalSekarang = index; const s = dataSoalAcak[index]; jenisSekarang = s.jenis || 'pg'; jodohState = {terpilihA: null, pasangan: jawabanUser[index] || {}}; let labelJenis = {'pg':'PG', 'bs':'B/S', 'jodoh':'Jodohkan', 'isian':'Isian', 'uraian':'Uraian'}[jenisSekarang]; let noPerJenis = dataSoalAcak.slice(0, index+1).filter(x => (x.jenis||'pg')===jenisSekarang).length; let html = `<div class="soal-box"><div><div class="no-soal">Soal ${labelJenis} Nomor ${noPerJenis} <span class="jenis-soal">${labelJenis}</span></div><div class="teks-soal">${s.pertanyaan}</div></div><div>`; if(jenisSekarang === 'pg'){ if(!s._opsiAcak){ let opsiAsli = s.opsi.map((o,i)=>({huruf:['A','B','C','D','E'][i], teks:o})); let opsiAcak = acakArray([...opsiAsli]); let kunciAsli = s.kunci; let teksKunci = s.opsi[['A','B','C','D','E'].indexOf(kunciAsli)]; let kunciBaru = opsiAcak.find(o => o.teks === teksKunci).huruf; s._opsiAcak = opsiAcak; s._kunciAcak = kunciBaru; } s._opsiAcak.forEach((o, i) => { let terpilih = jawabanUser[index] === o.huruf? 'terpilih' : ''; html += `<label class="opsi ${terpilih}"><input type="radio" name="jawaban" value="${o.huruf}" ${jawabanUser[index] === o.huruf? 'checked' : ''} onchange="simpanJawaban('${o.huruf}')"> <div><b>${o.huruf}.</b> ${o.teks}</div></label>`; }); } else if(jenisSekarang === 'bs'){ if(!s._bsAcak){ let opsiBS = ['Benar','Salah']; s._bsAcak = acakArray(opsiBS); s._kunciAcak = s._bsAcak.find(o => o === s.kunci); } s._bsAcak.forEach((o) => { let terpilih = jawabanUser[index] === o? 'terpilih' : ''; html += `<label class="opsi ${terpilih}"><input type="radio" name="jawaban" value="${o}" ${jawabanUser[index] === o? 'checked' : ''} onchange="simpanJawaban('${o}')"> <div>${o}</div></label>`; }); } else if(jenisSekarang === 'jodoh'){ if(!s._pasanganAcak){ s._pasanganAcak = acakArray([...s.pasangan]); let mapBaru = {}; s.pasangan.forEach((p, idxLama) => { mapBaru[idxLama] = s._pasanganAcak.indexOf(p); }); s._mapKunciJodoh = mapBaru; } html += `<div class="jodoh-container"><div class="jodoh-kolom"><h4>Kolom A</h4>`; s.opsi.forEach((item, i) => { let warna = jodohState.pasangan[i]? warnaList[jodohState.pasangan[i].warna] : '#f9f9f9'; html += `<div class="jodoh-item" id="a${i}" style="background:${warna}" onclick="klikJodohA(${i})">${i+1}. ${item}</div>`; }); html += `</div><div class="jodoh-kolom"><h4>Kolom B</h4>`; s._pasanganAcak.forEach((p, i) => { let warnaIdx = Object.values(jodohState.pasangan).find(x => x.idxB === i)?.warna; let warna = warnaIdx!== undefined? warnaList[warnaIdx] : '#f9f9f9'; html += `<div class="jodoh-item" id="b${i}" style="background:${warna}" onclick="klikJodohB(${i})">${p}</div>`; }); html += `</div></div>`; } else if(jenisSekarang === 'isian' || jenisSekarang === 'uraian'){ html += `<input type="text" class="input-jawaban" placeholder="Ketik jawabanmu disini..." value="${jawabanUser[index] || ''}" oninput="simpanJawaban(this.value)">`; } html += `</div></div>`; document.getElementById('soalArea').innerHTML = html; updateGridNomor(); updatePaginationBtn(); }
+function klikJodohA(idxA) { jodohState.terpilihA = idxA; document.querySelectorAll('.jodoh-item').forEach(it => it.classList.remove('terpilih')); document.getElementById('a'+idxA).classList.add('terpilih'); }
+function klikJodohB(idxB) { if(jodohState.terpilihA === null) { alert('Pilih dulu dari Kolom A!'); return; } let warnaIdx = Object.keys(jodohState.pasangan).length % warnaList.length; if(jodohState.pasangan[jodohState.terpilihA]){ warnaIdx = jodohState.pasangan[jodohState.terpilihA].warna; } jodohState.pasangan[jodohState.terpilihA] = {idxB, warna: warnaIdx}; jodohState.terpilihA = null; simpanJawabanJodoh(noSoalSekarang); tampilkanSoal(noSoalSekarang); }
+function simpanJawabanJodoh(index) { jawabanUser[index] = jodohState.pasangan; updateGridNomor(); }
+function soalSebelumnya() { if(noSoalSekarang > 0){ tampilkanSoal(noSoalSekarang - 1); }
+function soalBerikutnya() { if(noSoalSekarang < dataSoalAcak.length - 1){ tampilkanSoal(noSoalSekarang + 1); } }
+function updatePaginationBtn() { document.getElementById('btnPrev').disabled = (noSoalSekarang === 0); document.getElementById('btnNext').disabled = (noSoalSekarang === dataSoalAcak.length - 1); }
+function updateGridNomor() { document.querySelectorAll('.btn-nomor').forEach((btn, i) => { let jenisBtn = btn.dataset.jenis; if(jenisBtn === jenisSekarang){ btn.classList.remove('hidden'); } else { btn.classList.add('hidden'); } btn.classList.remove('aktif', 'dijawab'); if(i === noSoalSekarang) btn.classList.add('aktif'); if(jawabanUser[i]!== undefined && jawabanUser[i]!== "" && (typeof jawabanUser[i]!== 'object' || Object.keys(jawabanUser[i]).length > 0)) btn.classList.add('dijawab'); }); cekSelesai(); }
+function simpanJawaban(jawaban) { jawabanUser[noSoalSekarang] = jawaban; updateGridNomor(); }
+function cekSelesai() { let totalSoal = dataSoalAcak.length; let totalJawab = 0; dataSoalAcak.forEach((s,i) => { if(s.jenis === 'jodoh'){ if(jawabanUser[i] && Object.keys(jawabanUser[i]).length === s.opsi.length) totalJawab++; } else { if(jawabanUser[i]!== undefined && jawabanUser[i]!== "") totalJawab++; } }); document.getElementById('btnSelesai').style.display = (totalSoal > 0 && totalJawab === totalSoal)? 'block' : 'none'; }
+function mulaiTimer() { clearInterval(timer); timer = setInterval(() => { waktu--; let menit = Math.floor(waktu/60); let detik = waktu%60; document.getElementById('timer').innerText = `${menit.toString().padStart(2,'0')}:${detik.toString().padStart(2,'0')}`; if(waktu <= 0) { clearInterval(timer); selesaiUjian(); } }, 1000); }
+async function selesaiUjian() { clearInterval(timer); let benar = 0; dataSoalAcak.forEach((s, i) => { if(s.jenis === 'pg' || s.jenis === 'bs'){ let kunci = s._kunciAcak || s.kunci; if(jawabanUser[i] === kunci) benar++; } if(s.jenis === 'isian' || s.jenis === 'uraian'){ if((jawabanUser[i] || "").toLowerCase().trim() === (s.kunci || "").toLowerCase().trim()) benar++; } if(s.jenis === 'jodoh'){ let cocok = true; for(let k in s.kunci){ let kunciBBaru = s._mapKunciJodoh[k]; if(!jawabanUser[i] || jawabanUser[i][k]?.idxB!== kunciBBaru) cocok = false; } if(cocok) benar++; } }); let nilai = (benar/dataSoalAcak.length)*100; hasilAkhir = {...dataSiswa, mapel: document.getElementById('namaMapelNav').innerText, benar, total: dataSoalAcak.length, nilai: nilai.toFixed(2) }; document.getElementById('detailHasil').innerHTML = `Guru: <b>${hasilAkhir.guru}</b><br>Nama: <b>${hasilAkhir.nama}</b><br>Kelas: <b>${hasilAkhir.kelas}</b><br>Mapel: <b>${hasilAkhir.mapel}</b><br>Benar: <b>${hasilAkhir.benar}</b> dari ${hasilAkhir.total}<br><h2 style="color:var(--ijo)">NILAI: ${hasilAkhir.nilai}</h2>`; document.getElementById('popupHasil').style.display = 'flex'; let dataKirim = {...hasilAkhir, user_id: hasilAkhir.id}; delete dataKirim.id; await supabaseClient.from('hasil_cbt').insert(dataKirim); }
+function exportExcel() { let ws = XLSX.utils.json_to_sheet([hasilAkhir]); let wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "Hasil Ujian"); XLSX.writeFile(wb, `Nilai_${hasilAkhir.nama}_${hasilAkhir.mapel}.xlsx`); }
+</script>
+</body>
+</html>
