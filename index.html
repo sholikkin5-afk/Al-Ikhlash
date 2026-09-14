@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CBT SMK AL IKHLASH - V5.8.1</title>
+<title>CBT SMK AL IKHLASH - V5.8.2</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="config.js"></script>
 <style>
-    :root { 
-        --ijo-tua: #006400; --ijo: #228B22; --kuning: #FFD700; 
+    :root {
+        --ijo-tua: #006400; --ijo: #228B22; --kuning: #FFD700;
         --merah: #DC143C; --biru: #1976d2; --orange: #ff9800;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', 'Segoe UI', Arial, sans-serif; }
@@ -141,7 +141,7 @@ let warnaList = ['#ff5252','#4caf50','#2196f3','#ff9800','#9c27b0','#00bcd4','#e
 let jodohState = {terpilihA: null, pasangan: {}};
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const { data: { session } } = await supabaseClient.auth.getSession();
+    const { data: { session } }= await supabaseClient.auth.getSession();
     if(session) { await setUserData(session.user); }
 });
 
@@ -190,7 +190,7 @@ function klikJodohA(idxA) { jodohState.terpilihA = idxA; document.querySelectorA
 function klikJodohB(idxB) { if(jodohState.terpilihA === null) { alert('Pilih dulu dari Kolom A!'); return; } let warnaIdx = Object.keys(jodohState.pasangan).length % warnaList.length; if(jodohState.pasangan[jodohState.terpilihA]){ warnaIdx = jodohState.pasangan[jodohState.terpilihA].warna; } jodohState.pasangan[jodohState.terpilihA] = {idxB, warna: warnaIdx}; jodohState.terpilihA = null; simpanJawabanJodoh(noSoalSekarang); tampilkanSoal(noSoalSekarang); }
 function simpanJawabanJodoh(index) { jawabanUser[index] = jodohState.pasangan; updateGridNomor(); }
 function soalSebelumnya() { if(noSoalSekarang > 0){ tampilkanSoal(noSoalSekarang - 1); } }
-function soalBerikutnya() { if(noSoalSekarang < dataSoalAcak.length - 1){ tampilkanSoal(noSoalSekarang + 1); }
+function soalBerikutnya() { if(noSoalSekarang < dataSoalAcak.length - 1){ tampilkanSoal(noSoalSekarang + 1); } }// <- IKI WES TAK TUTUP
 function updatePaginationBtn() { document.getElementById('btnPrev').disabled = (noSoalSekarang === 0); document.getElementById('btnNext').disabled = (noSoalSekarang === dataSoalAcak.length - 1); }
 function updateGridNomor() { document.querySelectorAll('.btn-nomor').forEach((btn, i) => { let jenisBtn = btn.dataset.jenis; if(jenisBtn === jenisSekarang){ btn.classList.remove('hidden'); } else { btn.classList.add('hidden'); } btn.classList.remove('aktif', 'dijawab'); if(i === noSoalSekarang) btn.classList.add('aktif'); if(jawabanUser[i]!== undefined && jawabanUser[i]!== "" && (typeof jawabanUser[i]!== 'object' || Object.keys(jawabanUser[i]).length > 0)) btn.classList.add('dijawab'); }); cekSelesai(); }
 function simpanJawaban(jawaban) { jawabanUser[noSoalSekarang] = jawaban; updateGridNomor(); }
