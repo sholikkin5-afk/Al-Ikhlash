@@ -191,7 +191,7 @@ function klikJodohA(idxA) { jodohState.terpilihA = idxA; document.querySelectorA
 function klikJodohB(idxB) { if(jodohState.terpilihA === null) { alert('Pilih dulu dari Kolom A!'); return; } let warnaIdx = Object.keys(jodohState.pasangan).length % warnaList.length; if(jodohState.pasangan[jodohState.terpilihA]){ warnaIdx = jodohState.pasangan[jodohState.terpilihA].warna; } jodohState.pasangan[jodohState.terpilihA] = {idxB, warna: warnaIdx}; jodohState.terpilihA = null; simpanJawabanJodoh(noSoalSekarang); tampilkanSoal(noSoalSekarang); }
 function simpanJawabanJodoh(index) { jawabanUser[index] = jodohState.pasangan; updateGridNomor(); }
 function soalSebelumnya() { if(noSoalSekarang > 0){ tampilkanSoal(noSoalSekarang - 1); }
-function soalBerikutnya() { if(noSoalSekarang < dataSoalAcak.length - 1){ tampilkanSoal(noSoalSekarang + 1); } }
+function soalBerikutnya() { if(noSoalSekarang < dataSoalAcak.length - 1){ tampilkanSoal(noSoalSekarang + 1); }
 function updatePaginationBtn() { document.getElementById('btnPrev').disabled = (noSoalSekarang === 0); document.getElementById('btnNext').disabled = (noSoalSekarang === dataSoalAcak.length - 1); }
 function updateGridNomor() { document.querySelectorAll('.btn-nomor').forEach((btn, i) => { let jenisBtn = btn.dataset.jenis; if(jenisBtn === jenisSekarang){ btn.classList.remove('hidden'); } else { btn.classList.add('hidden'); } btn.classList.remove('aktif', 'dijawab'); if(i === noSoalSekarang) btn.classList.add('aktif'); if(jawabanUser[i]!== undefined && jawabanUser[i]!== "" && (typeof jawabanUser[i]!== 'object' || Object.keys(jawabanUser[i]).length > 0)) btn.classList.add('dijawab'); }); cekSelesai(); }
 function simpanJawaban(jawaban) { jawabanUser[noSoalSekarang] = jawaban; updateGridNomor(); }
